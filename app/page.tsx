@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from '../components/ui/card'; // カードUIをインポート
 import { motion } from 'framer-motion'; // framer-motionをインポート
