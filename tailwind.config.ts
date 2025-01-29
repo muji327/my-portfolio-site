@@ -1,16 +1,22 @@
 import type { Config } from "tailwindcss";
 
-export default {
+module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#4F46E5", // 明るいブルー
+        secondary: "#10B981", // グリーン
+        accent: "#F9A8D4", // ピンク
+        background: "#F3F4F6", // 背景色
+        cardBackground: "#FFFFFF", // カード背景
+        cardText: "#1F2937", // カードテキスト
+      },
+      fontFamily: {
+        sans: ["Inter", "Arial", "sans-serif"], // モダンなフォント
       },
     },
   },

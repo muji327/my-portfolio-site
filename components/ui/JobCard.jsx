@@ -1,12 +1,26 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
-export default function JobCard({ job }) {
+interface JobCardProps {
+  job: {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+  };
+}
+
+const JobCard = ({ job }: JobCardProps) => {
   return (
-    <Card className="p-4">
-      <CardContent>
-        <h2 className="text-xl font-bold">{job.title}</h2>
-        <p className="text-gray-500">{job.description}</p>
+    <Card className="max-w-xs mx-auto shadow-lg rounded-lg overflow-hidden bg-white hover:scale-105 transition-all duration-300 ease-in-out">
+      <img className="w-full h-48 object-cover" src={job.imageUrl} alt={job.title} />
+      <CardContent className="p-6">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-gray-800">{job.title}</CardTitle>
+          <CardDescription className="text-sm text-gray-500">{job.description}</CardDescription>
+        </CardHeader>
       </CardContent>
     </Card>
   );
-}
+};
+
+export default JobCard;
