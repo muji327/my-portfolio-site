@@ -4,6 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from '../components/ui/card'; // カードUIをインポート
 import { motion } from 'framer-motion'; // framer-motionをインポート
 
+// Jobインターフェースを定義
+interface Job {
+  id: string;
+  title: string;
+  description: string;
+}
+
 const JobsPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
 
