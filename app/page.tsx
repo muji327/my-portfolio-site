@@ -1,47 +1,61 @@
-// "use client" を追加
-"use client";
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from '../components/ui/card'; // カードUIをインポート
+import { motion } from 'framer-motion'; // framer-motionをインポート
 
-import { useEffect, useState } from "react";
-// import { supabase } from "@/lib/supabase";
-import JobCard from "@/components/ui/JobCard";
-
-
-// Job型を定義
-interface Job {
-  id: string;
-  title: string;
-  description: string;
-  // その他のプロパティを追加する場合はここに記述
-}
-
-export default function Jobs() {
-  // jobsの状態をJob型の配列として管理
+const JobsPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
 
-  // jobsを取得する非同期関数
-  const fetchJobs = async () => {
-    try {
-      // ここでは仮のAPIを使っています。実際にはSupabaseなどのAPIからデータを取得します
-      const response = await fetch("your-api-endpoint"); // APIのURLを指定
-      const data: Job[] = await response.json(); // Job型でデータを受け取る
-      setJobs(data); // データを状態にセット
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchJobs(); // コンポーネントがマウントされた時にデータを取得
+    // ここではダミーデータを使用します。実際はAPIでデータを取得します。
+    setJobs([
+      {
+        id: '1',
+        title: 'Web Developer',
+        description: 'Building amazing web applications using React and Next.js.',
+      },
+      {
+        id: '2',
+        title: 'UI/UX Designer',
+        description: 'Designing user-centric interfaces for web and mobile apps.',
+      },
+      {
+        id: '3',
+        title: 'Project Manager',
+        description: 'Managing project timelines and client communication.',
+      },
+    ]);
   }, []);
 
   return (
-    <div>
-      <h1>Jobs</h1>
-      <div>
+    <div className="container">
+      <header className="header">
+        <h1 className="title">Available Jobs</h1>
+      </header>
+      <div className="job-cards">
         {jobs.map((job) => (
-          <JobCard key={job.id} job={job} /> // JobCardを使用
+          <motion.div
+            key={job.id}
+            className="job-card"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle>{job.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>{job.description}</CardDescription>
+              </CardContent>
+              <CardFooter>
+                <button className="apply-button">Apply Now</button>
+              </CardFooter>
+            </Card>
+          </motion.div>
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default JobsPage;
