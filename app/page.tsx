@@ -1,24 +1,45 @@
-import { supabase } from "@/lib/supabase";
-import JobCard from "@/components/JobCard";
+// "use client" を追加
+"use client";
+
 import { useEffect, useState } from "react";
+// import { supabase } from "@/lib/supabase";
+import JobCard from "@/components/ui/JobCard";
+
+
+// Job型を定義
+interface Job {
+  id: string;
+  title: string;
+  description: string;
+  // その他のプロパティを追加する場合はここに記述
+}
 
 export default function Jobs() {
-  const [jobs, setJobs] = useState([]);
+  // jobsの状態をJob型の配列として管理
+  const [jobs, setJobs] = useState<Job[]>([]);
+
+  // jobsを取得する非同期関数
+  const fetchJobs = async () => {
+    try {
+      // ここでは仮のAPIを使っています。実際にはSupabaseなどのAPIからデータを取得します
+      const response = await fetch("your-api-endpoint"); // APIのURLを指定
+      const data: Job[] = await response.json(); // Job型でデータを受け取る
+      setJobs(data); // データを状態にセット
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    }
+  };
 
   useEffect(() => {
-    async function fetchJobs() {
-      let { data, error } = await supabase.from("jobs").select("*");
-      if (!error) setJobs(data);
-    }
-    fetchJobs();
+    fetchJobs(); // コンポーネントがマウントされた時にデータを取得
   }, []);
 
   return (
-    <div className="p-5">
-      <h1 className="text-3xl font-bold">仕事募集一覧</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div>
+      <h1>Jobs</h1>
+      <div>
         {jobs.map((job) => (
-          <JobCard key={job.id} job={job} />
+          <JobCard key={job.id} job={job} /> // JobCardを使用
         ))}
       </div>
     </div>
